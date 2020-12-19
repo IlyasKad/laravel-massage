@@ -1,0 +1,25 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container__entry {
+    max-width: 600px;
+    margin: 150px auto;
+}
+
+.container__entry-header {
+   display: flex;
+   justify-content: center;
+   margin-bottom: 30px;
+}
+
+#container__entry-label {
+    font-size: 15px;
+}
+
+#container__entry-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
