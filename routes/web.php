@@ -45,7 +45,7 @@ Route::post('/registration', 'RegistrationController@register');
 
 Route::get('/registration','RegistrationController@show')->name('registration');
 
-Route::post('/login', 'LoginController@authenticate');
+Route::post('/login', 'LoginController@authenticate')->name('post_login');
 
 Route::get('/login','LoginController@show')->name('login');
 
@@ -66,6 +66,6 @@ Route::post('/anketa_update/{id}', 'AnketaController@updateAnketa')->name('updat
 
 Route::get('/orders','OrderController@index')->name('orders.index')->middleware('auth');
 
-
 Route::get('/orders/{order}','OrderController@show')->name('orders.show')->middleware('auth');
 
+Route::get('/orders/create/{anketa_id}','OrderController@create')->name('orders.create')->middleware('auth');

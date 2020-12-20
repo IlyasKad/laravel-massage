@@ -9,28 +9,30 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
+use App\Models\Role;
+
 class RegistrationController extends Controller
-{
+{  
+
     public function show(){
 
         return view('registration');
     }
 
     public function register(Request $request){
-
-        $user = new App\User; // instance to store data to the DB
-
+        $user = new App\User;  
         $data = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]; // prepared data to store into user
-
-        $user = $user->create($data); // store to DB and get stored instance
-//        Auth::login($user); // authorize user
-//        return redirect()->intended('home');
-//        return $user;
-        return redirect()->route('home');
+        ]; 
+        $user = $user->create($data); 
+        $role = Role::find($request->role);       
+        $user->role()->associate($role);
+        $user->save();
+        return redirect()->route('login');
     }
+
+
 
 }

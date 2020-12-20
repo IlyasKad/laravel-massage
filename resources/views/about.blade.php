@@ -1,9 +1,7 @@
-{{--наследуем базовый шаблон--}}
 @extends('layouts.app')
 
-
-@section('title-block','Cтраница про нас')
+@section('title-block','Сторінка про нас')
 
 @section('content')
-    <h1>About page</h1>
+    <h1>Про нас</h1>
 @endsection

@@ -11,9 +11,9 @@
     <link href="{{ asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
 
     <link href="{{ asset('css/style1.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 

@@ -11,6 +11,7 @@ use App\Models\Type;
 use App\Models\City;
 use App\Models\Service;
 use App\Models\Order;
+use App\Models\Timetable;
 
 
 use Illuminate\Http\Request;
@@ -28,7 +29,12 @@ class OrderController extends Controller{
         return view('order', ['order' => Order::find($id)]);
     }
 
-  
+   	public function create($anketa_id){
+        return view('orders_create', [
+        	'anketa' => Anketa::find($anketa_id),
+        	'timetables' => Timetable::all()
+        ]);
+    }
 
    
 }

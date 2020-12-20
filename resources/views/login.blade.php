@@ -9,17 +9,17 @@
 <div class="container__entry">
     <h1 class="container__entry-header">Увійти до системи</h1>
     <div>
-        <form enctype="multipart/form-data" action="{{route('login')}}" method="post" class="ui form segment">
+        <form enctype="multipart/form-data" action="{{route('post_login')}}" method="post" class="ui form segment">
             @csrf
 
             <div class="field">
-                <label for="type" id="container__entry-label">Нікнейм</label>
-                <input name="name" class="ui input" maxlength="50">
+                <label for="type" id="container__entry-label">Пошта</label>
+                <input name="email" type="email" placeholder="Пошта" class="ui input" maxlength="50">
             </div>
 
             <div class="field">
                 <label for="type" id="container__entry-label">Пароль</label>
-                <input  name="password" type="password" class="ui input">
+                <input name="password" placeholder="Пароль" type="password" class="ui input">
             </div>
 
             <div class="inline field">
@@ -30,14 +30,10 @@
                     </label>
                 </div>
             </div>
-            {{-- </div> --}}
-            {{--<input multiple="multiple" name="photos[]" type="file" id="photos"  accept="image/png, image/jpeg" />--}}
-            {{--<input type="submit" name="submit" value="create">--}}
+          
             <div id="container__entry-button">
                 <button type="submit" class="ui primary submit button">Увійти</button>
             </div>
-
-
         </form>
     </div>
 </div>
