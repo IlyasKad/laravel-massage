@@ -15,7 +15,8 @@
     @continue;
     @endif
 
-    <div href="{{route('anketa',$anketa->id)}}" id="cards__list-item-edit" class="card">
+
+    <a href="{{route('anketa',$anketa->id)}}" id="cards__list-item-edit" class="card">
         <img src="{{ asset('storage/images/'.$anketa->photo->path) }}" class="image card__image" alt="salon">
         <div class="content">
             <div class="header">{{$anketa->name}}</div>
@@ -32,13 +33,11 @@
             </div>
             <div class="description">
                 Ціна: {{$anketa->price_1h_challenge}} грн за годину
-            </div>
-
-            <a id="button__edit" class="ui secondary basic button"
-                href="{{route('editAnketa',$anketa->id)}}">Редагувати</a>
-
+            </div>    
         </div>
-    </div>
+    </a>
+
+     
     @endforeach
 </div>
 

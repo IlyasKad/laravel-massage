@@ -8,6 +8,8 @@
 
 
 
+
+
 {{-- @foreach($orders as $order)
 
 <a href="{{route('orders.show',$order->id)}}">
@@ -27,6 +29,13 @@
 
 <h1 id="header__h1" class="container__entry-header">Мої прийоми</h1>
     <div id="cards__list" class="ui link cards">
+
+
+        @if($orders->isEmpty())
+             <div class="header"> У вас немає прийомів </div>   
+        @endif
+
+
         @foreach($orders as $order)
             <a href="{{route('orders.show',$order->id)}}" id="cards__list-item" class="card">
                 <img src="{{ asset('storage/images/'.$order->anketa->photo->path) }}" class="image card__image" alt="salon">
@@ -38,9 +47,8 @@
                     <div class="meta">
                         <b>Дата: {{$order->date}}</b>
                         <div>
-                            @foreach($order->timetables as $time)
-                            {{$time->begin}} - {{$time->end}},
-                            @endforeach
+                          {{$order->timetable->begin}} - {{$order->timetable->end}} 
+                          
                         </div>
                     </div>
                     <div class="description">

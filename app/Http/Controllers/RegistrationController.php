@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Role;
 
 class RegistrationController extends Controller
-{  
+{
 
     public function show(){
 
@@ -20,14 +20,23 @@ class RegistrationController extends Controller
     }
 
     public function register(Request $request){
-        $user = new App\User;  
+
+
+        $validator = $request->validate([
+            'name' => 'required|unique:users,name',
+            'email' => 'required|unique:users,email',
+            'password' => 'required|min:5'
+            ]);
+
+
+        $user = new App\User;
         $data = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]; 
-        $user = $user->create($data); 
-        $role = Role::find($request->role);       
+        ];
+        $user = $user->create($data);
+        $role = Role::find($request->role);
         $user->role()->associate($role);
         $user->save();
         return redirect()->route('login');

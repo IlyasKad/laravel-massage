@@ -17,9 +17,14 @@ class Order extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function timetables()
+    // public function timetables()
+    // {
+    //     return $this->belongsToMany('App\Models\Timetable');
+    // }
+
+     public function timetable()
     {
-        return $this->belongsToMany('App\Models\Timetable');
+        return $this->belongsTo('App\Models\Timetable');
     }
 
 }

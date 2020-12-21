@@ -36,5 +36,41 @@ class OrderController extends Controller{
         ]);
     }
 
+
+
+    public function store(Request $request){
+
+
+        $validator = $request->validate([
+           'date' => 'required',
+           'timetable' => 'required'
+        ]); 
+
+        $order = new Order();        
+        $order->date = $request->input('date');
+
+        $anketa = Anketa::find($request->input('anketa_id'));
+        $order->anketa()->associate($anketa);
+
+        $user=Auth::user();
+        $order->user()->associate($user);       
+
+        $timetable = Timetable::find($request->input('timetable'));
+        $order->timetable()->associate($timetable);
+
+        // $order->save();
+     
+
+
+        // foreach ($request->timetables as $timetable_id){           
+        //     $timetable = Timetable::find($timetable_id);
+        //     $timetable->orders()->attach($order->id);          
+        // }
+
+        $order->save();
+        return redirect()->route('home');
+    }
+
+
    
 }

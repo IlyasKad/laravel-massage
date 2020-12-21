@@ -42,9 +42,9 @@
             <tr>
                 <td data-label="Name">Години прийому</td>
                 <td data-label="Age">
-                    @foreach($order->timetables as $timetable )
-                    {{$timetable->begin}}-{{$timetable->end}}
-                    @endforeach
+                   
+                    {{$order->timetable->begin}}-{{$order->timetable->end}}
+                  
                 </td>
             </tr>
 

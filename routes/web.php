@@ -65,7 +65,7 @@ Route::post('/anketa_update/{id}', 'AnketaController@updateAnketa')->name('updat
 
 
 Route::get('/orders','OrderController@index')->name('orders.index')->middleware('auth');
-
 Route::get('/orders/{order}','OrderController@show')->name('orders.show')->middleware('auth');
-
 Route::get('/orders/create/{anketa_id}','OrderController@create')->name('orders.create')->middleware('auth');
+Route::post('/orders', 'OrderController@store')->name('orders.store')->middleware('auth');
+

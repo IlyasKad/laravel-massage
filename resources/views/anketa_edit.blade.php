@@ -141,7 +141,29 @@
 
 </div>
 
-{{-- TODO --}}
+<div class="field">
+    <label id="add__anket-label">
+        Виберіть Ваші послуги
+    </label>
+    @foreach($services->chunk(15) as $part_services)
+    <div class="field">
+        @foreach($part_services as $service)
+        <div class="ui toggle checkbox">
+            <div class="field">
+                @if($anketa->services->contains($service))
+                    <input type="checkbox" checked name="services[]" value="{{$service->id}}">
+                    <label for="pris">{{$service->name}}</label>
+                @else
+                    <input type="checkbox" name="services[]" value="{{$service->id}}">
+                    <label for="pris">{{$service->name}}</label>
+                @endif
+            </div>
+        </div>
+        @endforeach
+    </div>
+    @endforeach
+</div>
+
 
 <div class="field">
     <label id="add__anket-label" for="photo">Зображення приміщення</label>

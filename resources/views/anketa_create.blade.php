@@ -43,6 +43,11 @@
             </select>
         </div>
 
+        <div class="field">
+            <label id="add__anket-label" for="address">Адреса: </label>
+            <input id="address" name="address" class="ui input" placeholder="вулиця Пирогова, 23">
+        </div>
+
         <div class="two fields">
             @for($i = 0; $i < 3; $i++) <div class="field">
                 <label id="add__anket-label" for="metro{{$i}}">Метро</label>

@@ -9,6 +9,12 @@
 
 <div id="container__anket">
     <h1 class="container__entry-header">Анкета № {{$anketa->id}} ({{$anketa->name}})</h1>
+
+
+    @if(Auth::user()->role->name == 'owner' && Auth::user()->anketas->contains($anketa))
+    <a class="ui secondary basic button" href="{{route('editAnketa',$anketa->id)}}">Редагувати</a>
+    @endif
+
     <table class="ui celled table">
         <thead>
             <tr>
@@ -35,9 +41,7 @@
             <tr>
                 <td data-label="Name">Метро</td>
                 <td data-label="Age">
-                    @foreach($anketa->metros as $m)
-                    {{$m->name}}
-                    @endforeach
+                    {{ $anketa->metros->implode('name', ', ') }}
                 </td>
             </tr>
 
@@ -95,9 +99,39 @@
     <img id="anketa__image" class="ui large rounded image" src="{{ asset('storage/images/'.$photo->path) }} ">
     @endforeach
 
+
+
+    @if(Auth::user()->role->name == 'user')
     <div id="container__entry-button">
-        <a href="{{route('orders.create', $anketa->id)}}" class="ui secondary basic button">Записатися до спеціаліста</a>
+        <a href="{{route('orders.create', $anketa->id)}}" class="ui secondary basic button">Записатися до
+            спеціаліста</a>
     </div>
+    @endif
+
+
+    <h1 class="container__entry-header">Години, які зайняли</h1>
+    <table class="ui celled table">
+        <thead>
+            <tr>
+                <th>№ заказу</th>
+                <th>Інформація про прийом</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach($anketa->orders as $order)
+            <tr>
+                <td data-label="Name">{{$order->id}}</td>
+                <td data-label="Age"> Ім'я: {{$order->user->name}}, дата:{{ $order->date}}, час:
+                    {{$order->timetable->begin}}-{{$order->timetable->end}}</td>
+            </tr>
+            @endforeach
+
+        </tbody>
+    </table>
+
+
+
 </div>
 
 

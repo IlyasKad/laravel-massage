@@ -17,9 +17,14 @@ class Timetable extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    // public function orders()
+    // {
+    //     return $this->belongsToMany('App\Models\Order');
+    // }
+
     public function orders()
     {
-        return $this->belongsToMany('App\Models\Order');
+        return $this->hasMany('App\Models\Order');
     }
 
 

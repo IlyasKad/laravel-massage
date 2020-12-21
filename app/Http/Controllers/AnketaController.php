@@ -19,12 +19,13 @@ use Illuminate\Support\Facades\Input;
 
 class AnketaController extends Controller{
 
-    public function allData(Request $request) {
-
+    public function allData(Request $request) { // $direction = null means asc
        
         // for ($i=0; $i < 10; $i++) { 
         //     echo "<br>";
         // }
+        $sort_params = ['price_1h_office' => 'За ціною', 'city_id' => 'За містом'];
+        $direction_params = ['asc' => 'За зростанням ', 'desc' => 'За спаданням'];
 
         $params = [];
         $conditions = [];
@@ -36,28 +37,53 @@ class AnketaController extends Controller{
                 array_push($conditions,  [$param, '=', $request->input($param)]);
             }
         }
+        
+        if ($request->input('min_price')) {
+            $params['min_price'] = $request->input('min_price');
+            array_push($conditions,  ['price_1h_office', '>=', $request->input('min_price')]);
+        }
 
-        // TODO find by price
-        // if ($request->input('price_min')) {
-        //     $params['city_id'] = $request->input('city_id');
-        //     array_push($conditions,  ['price_from_bd', '>', $request->input('price_min')]);
-        // }
+         if ($request->input('max_price')) {
+            $params['max_price'] = $request->input('max_price');
+            array_push($conditions,  ['price_1h_office', '<=', $request->input('max_price')]);
+        }        
+
+        // sort result    
+        $order = $request->input('order');
+        $direction = $request->input('direction');
+        if ($order) {
+            $params['order'] = $order;            
+        }
+        if ($direction) {
+            $params['direction'] = $direction;            
+        }
 
 
-        // TODO sort by different values
+        if(empty($direction)){
+            $direction = 'asc'; // default direction
+        }
+        if(!empty($order)){
+            $result_anketas = Anketa::where($conditions)->orderBy($order, $direction)->get();
+        }else{
+            $result_anketas = Anketa::where($conditions)->get();
+        }
         
         return view('index', [
-            'anketas' => Anketa::where($conditions)->get(), 
+            'anketas' => $result_anketas, 
             'cities' => City::all(),
             'types' => Type::all(),
             'list_experience' => Experience::all(),
             'educations' => Education::all(),
-            'params' => $params
-
+            'params' => $params,
+            'sort_params' => $sort_params,
+            'direction_params' => $direction_params
         ]);
     }
 
     public function showAnketa($id){
+
+        
+        
         return view('anketa', ['anketa' => Anketa::getAnketaById($id)]);
     }
 
@@ -89,6 +115,12 @@ class AnketaController extends Controller{
         $anketa->price_1h_challenge=$request->input('price_1h_challenge');
 
         $anketa->price_2h_challenge=$request->input('price_2h_challenge');
+
+
+
+        $anketa->address=$request->input('address');
+
+
 
         $type = Type::find($request->input('type'));
         $anketa->type()->associate($type);
@@ -149,6 +181,11 @@ class AnketaController extends Controller{
 
         $anketa->price_2h_challenge=$request->input('price_2h_challenge');
 
+
+        $anketa->address=$request->input('address');
+
+
+
         $type = Type::find($request->input('type'));
         $anketa->type()->associate($type);
 
@@ -198,6 +235,9 @@ class AnketaController extends Controller{
 
 
     public function editAnketa($id){
-        return view('anketa_edit', ['anketa' => Anketa::getAnketaById($id)]);
+        return view('anketa_edit', [
+            'anketa' => Anketa::getAnketaById($id),
+            'services' => Service::all()
+        ]);
     }
 }

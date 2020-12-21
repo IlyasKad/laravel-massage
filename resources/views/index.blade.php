@@ -13,7 +13,78 @@
     @endif
     <div id="search">
         <h1 class="container__entry-header">Пошук</h1>
+
+
         <form name="search" action="" method="get" class="ui form segment">
+
+
+                <div class="two fields">             
+                    <div class="field">
+                        <label for="сity">Параметр сортування: </label>
+                        <select id="direction" class="ui fluid search dropdown" name="order">
+                        @if(empty($params['order']))
+                            <option value="" selected>Не вибрано</option>
+                        @else
+                            <option value="">Не вибрано</option>
+                        @endif   
+                        @foreach($sort_params as $key => $value)
+                            @if(!empty($params['order']) && $params['order']==$key)
+                                <option value="{{$key}}" selected>{{$value}}</option>
+                            @else
+                                <option value="{{$key}}">{{$value}}</option>
+                            @endif
+                        @endforeach
+                        </select>                  
+                    </div>
+
+                    <div class="field">
+                        <label for="сity">Напрямок: </label>
+                        <select id="direction" class="ui fluid search dropdown" name="direction">
+                            @if(empty($params['direction']))
+                                <option value="" selected>Не вибрано</option>
+                            @else
+                                <option value="">Не вибрано</option>
+                            @endif   
+                            @foreach($direction_params as $key => $value)
+                            @if(!empty($params['direction']) && $params['direction']==$key)
+                                <option value="{{$key}}" selected>{{$value}}</option>
+                            @else
+                                <option value="{{$key}}">{{$value}}</option>
+                            @endif
+                        @endforeach
+                        </select>                
+                    </div>
+                </div>
+
+
+
+
+
+
+
+             <div class="two fields">             
+                <div class="field">
+                    <label for="сity">Мінімальна ціна: </label>
+                        @if(empty($params['min_price']))
+                             <input type="text" name="min_price" value="">
+                        @else
+                             <input type="text" name="min_price" value="{{$params['min_price']}}">
+                        @endif                   
+                </div>
+               <div class="field">
+                    <label for="сity">Максимальна ціна: </label>
+                        @if(empty($params['max_price']))
+                             <input type="text" name="max_price" value="">
+                        @else
+                             <input type="text" name="max_price" value="{{$params['max_price']}}">
+                        @endif                   
+                </div>
+            </div>
+
+
+
+
+
             <div class="two fields">
                 <div class="field">
                     <label for="сity">Місто</label>
@@ -31,9 +102,7 @@
                         @endif
                         @endforeach
                     </select>
-
                 </div>
-
                 <div class="field">
                     <label for="type">Тип</label>
                     <select id="type" class="ui dropdown" name="type_id">
@@ -52,6 +121,10 @@
                     </select>
                 </div>
             </div>
+
+
+
+
 
             <div class="two fields">
                 <div class="field">
@@ -115,14 +188,12 @@
 
                     </div>
                     <div class="description">
-                        <span class="metro_list">Метро:
-                            @foreach($anketa->metros as $metro)
-                            {{$metro->name}},
-                            @endforeach
+                        <span class="metro_list">Метро:                         
+                            {{ $anketa->metros->implode('name', ', ') }}                          
                         </span>
                     </div>
                     <div class="description">
-                        Ціна: {{$anketa->price_1h_challenge}} грн за годину
+                        Ціна: {{$anketa->price_1h_office}} грн за годину
                     </div>
                 </div>
             </a>
