@@ -10,11 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\MessageBag;
 
-class LoginController extends Controller
-{
-
+class LoginController extends Controller {
     public function show(){
-
         return view('login');
     }
 
@@ -28,16 +25,11 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) { // check in the DB
             return redirect()->intended(); // back to screen user tried to visit or home
         }
-        return redirect()->back();//->withErrors(new MessageBag(['password' => 'Wrong password.'])); 
+        return redirect()->back();//->withErrors(new MessageBag(['password' => 'Wrong password.']));
     }
 
     public function logout(){
         Auth::logout();
         return redirect()->route('home');
     }
-
-  
-
-
-
 }

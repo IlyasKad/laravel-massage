@@ -18,12 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 class AnketaController extends Controller{
-
-    public function allData(Request $request) { // $direction = null means asc
-       
-        // for ($i=0; $i < 10; $i++) { 
-        //     echo "<br>";
-        // }
+    public function allData(Request $request) {
         $sort_params = ['price_1h_office' => 'За ціною', 'city_id' => 'За містом'];
         $direction_params = ['asc' => 'За зростанням ', 'desc' => 'За спаданням'];
 
@@ -37,7 +32,7 @@ class AnketaController extends Controller{
                 array_push($conditions,  [$param, '=', $request->input($param)]);
             }
         }
-        
+
         if ($request->input('min_price')) {
             $params['min_price'] = $request->input('min_price');
             array_push($conditions,  ['price_1h_office', '>=', $request->input('min_price')]);
@@ -46,16 +41,16 @@ class AnketaController extends Controller{
          if ($request->input('max_price')) {
             $params['max_price'] = $request->input('max_price');
             array_push($conditions,  ['price_1h_office', '<=', $request->input('max_price')]);
-        }        
+        }
 
-        // sort result    
+        // sort result
         $order = $request->input('order');
         $direction = $request->input('direction');
         if ($order) {
-            $params['order'] = $order;            
+            $params['order'] = $order;
         }
         if ($direction) {
-            $params['direction'] = $direction;            
+            $params['direction'] = $direction;
         }
 
 
@@ -67,9 +62,9 @@ class AnketaController extends Controller{
         }else{
             $result_anketas = Anketa::where($conditions)->get();
         }
-        
+
         return view('index', [
-            'anketas' => $result_anketas, 
+            'anketas' => $result_anketas,
             'cities' => City::all(),
             'types' => Type::all(),
             'list_experience' => Experience::all(),
@@ -81,14 +76,11 @@ class AnketaController extends Controller{
     }
 
     public function showAnketa($id){
-
-        
-        
         return view('anketa', ['anketa' => Anketa::getAnketaById($id)]);
     }
 
     public function createAnketa(){
-        return view('anketa_create', [            
+        return view('anketa_create', [
             'cities' => City::all(),
             'types' => Type::all(),
             'experiences' => Experience::all(),
@@ -136,12 +128,12 @@ class AnketaController extends Controller{
         $anketa->metros()->detach();
         $anketa->save();
 
-        foreach ($request->id_metros as $id_metro){         
+        foreach ($request->id_metros as $id_metro){
             if($id_metro!=0){
-                $anketa->metros()->attach($id_metro);               
+                $anketa->metros()->attach($id_metro);
             }
         }
-        
+
 
 //        if(!empty($request->photos)){
 //            $i=1;
@@ -207,9 +199,9 @@ class AnketaController extends Controller{
                 $metro->anketas()->attach($anketa->id);
             }
         }
-        foreach ($request->services as $service_id){           
+        foreach ($request->services as $service_id){
             $service = Service::find($service_id);
-            $service->anketas()->attach($anketa->id);  
+            $service->anketas()->attach($anketa->id);
         }
 
         if(!empty($request->photos)){

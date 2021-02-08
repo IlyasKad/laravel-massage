@@ -11,17 +11,13 @@ use Illuminate\Support\Facades\Log;
 
 use App\Models\Role;
 
-class RegistrationController extends Controller
-{
-
+class RegistrationController extends Controller {
     public function show(){
 
         return view('registration');
     }
 
-    public function register(Request $request){
-
-
+    public function register(Request $request) {
         $validator = $request->validate([
             'name' => 'required|unique:users,name',
             'email' => 'required|unique:users,email',
@@ -41,7 +37,4 @@ class RegistrationController extends Controller
         $user->save();
         return redirect()->route('login');
     }
-
-
-
 }

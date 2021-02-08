@@ -9,81 +9,69 @@
 
 <div id="container">
     @if(Auth::user())
-        <h1 id="header__h1" class="container__entry-header">Доброго дня, {{Auth::user()->name}}</h1>
+    <h1 id="header__h1" class="container__entry-header">Доброго дня, {{Auth::user()->name}}</h1>
     @endif
     <div id="search">
         <h1 class="container__entry-header">Пошук</h1>
 
 
         <form name="search" action="" method="get" class="ui form segment">
-
-
-                <div class="two fields">             
-                    <div class="field">
-                        <label for="сity">Параметр сортування: </label>
-                        <select id="direction" class="ui fluid search dropdown" name="order">
-                        @if(empty($params['order']))
-                            <option value="" selected>Не вибрано</option>
-                        @else
-                            <option value="">Не вибрано</option>
-                        @endif   
-                        @foreach($sort_params as $key => $value)
-                            @if(!empty($params['order']) && $params['order']==$key)
-                                <option value="{{$key}}" selected>{{$value}}</option>
-                            @else
-                                <option value="{{$key}}">{{$value}}</option>
-                            @endif
-                        @endforeach
-                        </select>                  
-                    </div>
-
-                    <div class="field">
-                        <label for="сity">Напрямок: </label>
-                        <select id="direction" class="ui fluid search dropdown" name="direction">
-                            @if(empty($params['direction']))
-                                <option value="" selected>Не вибрано</option>
-                            @else
-                                <option value="">Не вибрано</option>
-                            @endif   
-                            @foreach($direction_params as $key => $value)
-                            @if(!empty($params['direction']) && $params['direction']==$key)
-                                <option value="{{$key}}" selected>{{$value}}</option>
-                            @else
-                                <option value="{{$key}}">{{$value}}</option>
-                            @endif
-                        @endforeach
-                        </select>                
-                    </div>
-                </div>
-
-
-
-
-
-
-
-             <div class="two fields">             
+            <div class="two fields">
                 <div class="field">
-                    <label for="сity">Мінімальна ціна: </label>
-                        @if(empty($params['min_price']))
-                             <input type="text" name="min_price" value="">
+                    <label for="сity">Параметр сортування: </label>
+                    <select id="direction" class="ui fluid search dropdown" name="order">
+                        @if(empty($params['order']))
+                        <option value="" selected>Не вибрано</option>
                         @else
-                             <input type="text" name="min_price" value="{{$params['min_price']}}">
-                        @endif                   
+                        <option value="">Не вибрано</option>
+                        @endif
+                        @foreach($sort_params as $key => $value)
+                        @if(!empty($params['order']) && $params['order']==$key)
+                        <option value="{{$key}}" selected>{{$value}}</option>
+                        @else
+                        <option value="{{$key}}">{{$value}}</option>
+                        @endif
+                        @endforeach
+                    </select>
                 </div>
-               <div class="field">
-                    <label for="сity">Максимальна ціна: </label>
-                        @if(empty($params['max_price']))
-                             <input type="text" name="max_price" value="">
+
+                <div class="field">
+                    <label for="сity">Напрямок: </label>
+                    <select id="direction" class="ui fluid search dropdown" name="direction">
+                        @if(empty($params['direction']))
+                        <option value="" selected>Не вибрано</option>
                         @else
-                             <input type="text" name="max_price" value="{{$params['max_price']}}">
-                        @endif                   
+                        <option value="">Не вибрано</option>
+                        @endif
+                        @foreach($direction_params as $key => $value)
+                        @if(!empty($params['direction']) && $params['direction']==$key)
+                        <option value="{{$key}}" selected>{{$value}}</option>
+                        @else
+                        <option value="{{$key}}">{{$value}}</option>
+                        @endif
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
-
-
-
+            <div class="two fields">
+                <div class="field">
+                    <label for="сity">Мінімальна ціна: </label>
+                    @if(empty($params['min_price']))
+                    <input type="text" name="min_price" value="">
+                    @else
+                    <input type="text" name="min_price" value="{{$params['min_price']}}">
+                    @endif
+                </div>
+                <div class="field">
+                    <label for="сity">Максимальна ціна: </label>
+                    @if(empty($params['max_price']))
+                    <input type="text" name="max_price" value="">
+                    @else
+                    <input type="text" name="max_price" value="{{$params['max_price']}}">
+                    @endif
+                </div>
+            </div>
 
             <div class="two fields">
                 <div class="field">
@@ -121,10 +109,6 @@
                     </select>
                 </div>
             </div>
-
-
-
-
 
             <div class="two fields">
                 <div class="field">
@@ -175,28 +159,28 @@
     <h1 class="container__entry-header">Знайдені пропозиції</h1>
     <div id="cards__list" class="ui link cards">
         @foreach($anketas as $anketa)
-            @if($anketa->photo==null)
-                @continue;
-            @endif
+        @if($anketa->photo==null)
+        @continue;
+        @endif
 
-            <a href="{{route('anketa',$anketa->id)}}" id="cards__list-item" class="card">
-                <img src="{{ asset('storage/images/'.$anketa->photo->path) }}" class="image card__image" alt="salon">
-                <div class="content">
-                    <div class="header">{{$anketa->name}}</div>
-                    <div class="meta">
-                        <b>Місто: {{$anketa->city->name}}</b>
+        <a href="{{route('anketa',$anketa->id)}}" id="cards__list-item" class="card">
+            <img src="{{ asset('storage/images/'.$anketa->photo->path) }}" class="image card__image" alt="salon">
+            <div class="content">
+                <div class="header">{{$anketa->name}}</div>
+                <div class="meta">
+                    <b>Місто: {{$anketa->city->name}}</b>
 
-                    </div>
-                    <div class="description">
-                        <span class="metro_list">Метро:                         
-                            {{ $anketa->metros->implode('name', ', ') }}                          
-                        </span>
-                    </div>
-                    <div class="description">
-                        Ціна: {{$anketa->price_1h_office}} грн за годину
-                    </div>
                 </div>
-            </a>
+                <div class="description">
+                    <span class="metro_list">Метро:
+                        {{ $anketa->metros->implode('name', ', ') }}
+                    </span>
+                </div>
+                <div class="description">
+                    Ціна: {{$anketa->price_1h_office}} грн за годину
+                </div>
+            </div>
+        </a>
         @endforeach
     </div>
 
